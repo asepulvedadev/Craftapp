@@ -55,6 +55,14 @@ module.exports = {
           border: 'var(--sidebar-border)',
           ring: 'var(--sidebar-ring)',
         },
+        craftia: {
+          orange: '#FF6B35',
+          'orange-light': '#FF8A65',
+          'orange-dark': '#E55A2B',
+          gray: '#6B7280',
+          'gray-light': '#F3F4F6',
+          'gray-dark': '#374151',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
