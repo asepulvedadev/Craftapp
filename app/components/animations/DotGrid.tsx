@@ -1,6 +1,5 @@
 'use client';
-import React, { useRef, useEffect, useCallback, useMemo } from 'react';
-import { gsap } from 'gsap';
+import React, { useRef, useEffect, useCallback, useMemo, useState } from 'react';
 
 const throttle = (func: (...args: any[]) => void, limit: number) => {
   let lastCall = 0;
@@ -79,11 +78,20 @@ const DotGrid: React.FC<DotGridProps> = ({
   const baseRgb = useMemo(() => hexToRgb(baseColor), [baseColor]);
   const activeRgb = useMemo(() => hexToRgb(activeColor), [activeColor]);
 
+  const [gsap, setGsap] = useState<any>(null);
+
   const iconImage = useMemo(() => {
     if (typeof window === 'undefined') return null;
     const img = new Image();
     img.src = '/icons/backgroundIcon.svg';
     return img;
+  }, []);
+
+  // Load GSAP dynamically
+  useEffect(() => {
+    import('gsap').then((module) => {
+      setGsap(module.gsap);
+    });
   }, []);
 
   const buildGrid = useCallback(() => {
@@ -209,7 +217,7 @@ const DotGrid: React.FC<DotGridProps> = ({
 
       for (const dot of dotsRef.current) {
         const dist = Math.hypot(dot.cx - pr.x, dot.cy - pr.y);
-        if (speed > speedTrigger && dist < proximity && !dot._inertiaApplied) {
+        if (speed > speedTrigger && dist < proximity && !dot._inertiaApplied && gsap) {
           dot._inertiaApplied = true;
           gsap.killTweensOf(dot);
           const pushX = (dot.cx - pr.x) * 0.3 + vx * 0.01;
@@ -239,7 +247,7 @@ const DotGrid: React.FC<DotGridProps> = ({
       const cy = e.clientY - rect.top;
       for (const dot of dotsRef.current) {
         const dist = Math.hypot(dot.cx - cx, dot.cy - cy);
-        if (dist < shockRadius && !dot._inertiaApplied) {
+        if (dist < shockRadius && !dot._inertiaApplied && gsap) {
           dot._inertiaApplied = true;
           gsap.killTweensOf(dot);
           const falloff = Math.max(0, 1 - dist / shockRadius);
