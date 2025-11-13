@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ArrowRight, Sparkles, Zap, Code, Palette, Printer } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useMousePosition } from '@/lib/hooks'
-import { ParticleBackground } from '../animations'
+import DotGrid from '../animations/DotGrid'
 
 export function Hero() {
   const { scrollY } = useScroll()
@@ -16,8 +16,26 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
-      {/* Clean dark background */}
-      <div className="absolute inset-0 bg-background" />
+      {/* Interactive icon grid background */}
+      <div className="absolute inset-0 opacity-10">
+        <DotGrid
+          dotSize={16}
+          gap={32}
+          baseColor="#FF6B35"
+          activeColor="#FF6B35"
+          proximity={120}
+          shockRadius={250}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={1.5}
+        />
+      </div>
+
+      {/* Gradient overlay for smooth transition - top */}
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-background via-background/20 to-transparent z-5"></div>
+
+      {/* Gradient overlay for smooth transition - bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background via-background/20 to-transparent z-5"></div>
 
       <motion.div
         style={{ opacity }}
@@ -120,43 +138,6 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Enhanced Stats with glassmorphism cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6, duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
-          >
-            {[
-              { number: '50+', label: 'Proyectos Completados', icon: Code },
-              { number: '95%', label: 'Satisfacción Cliente', icon: Sparkles },
-              { number: '5-7', label: 'Días de Entrega', icon: Zap },
-              { number: '24/7', label: 'Soporte', icon: Printer },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  delay: 1.8 + index * 0.1,
-                  duration: 0.5,
-                  type: 'spring',
-                  stiffness: 200,
-                }}
-                className="glass-card p-6 text-center hover-lift cursor-pointer"
-              >
-                <motion.div
-                  className="w-12 h-12 mx-auto mb-3 bg-primary/10 rounded-full flex items-center justify-center"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <stat.icon className="w-6 h-6 text-primary" />
-                </motion.div>
-                <div className="text-3xl font-bold text-primary mb-1">{stat.number}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
         </motion.div>
       </motion.div>
 
