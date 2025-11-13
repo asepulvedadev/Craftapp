@@ -45,7 +45,7 @@ export function Navbar() {
               <img
                 src="/LogoHorizontal.webp"
                 alt="CRAFTIA Logo"
-                className="h-8 w-auto transition-all duration-300 group-hover:brightness-110"
+                className="h-10 w-auto transition-all duration-300 group-hover:brightness-110"
               />
             </Link>
           </motion.div>

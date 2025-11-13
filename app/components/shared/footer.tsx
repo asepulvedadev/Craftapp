@@ -39,7 +39,7 @@ export function Footer() {
               <img
                 src="/LogoHorizontal.webp"
                 alt="CRAFTIA Logo"
-                className="h-8 w-auto brightness-0 invert"
+                className="h-10 w-auto"
               />
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md">
