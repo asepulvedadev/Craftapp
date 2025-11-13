@@ -30,8 +30,8 @@ export function Navbar() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'glass-card shadow-glass'
-          : 'bg-transparent border-b border-border/50'
+          ? 'bg-primary shadow-lg'
+          : 'bg-primary'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,17 +41,12 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link href="/" className="flex items-center space-x-2 group">
-              <motion.div
-                className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-glow-orange-soft"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Zap className="w-5 h-5 text-primary-foreground" />
-              </motion.div>
-              <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                CRAFTIA
-              </span>
+            <Link href="/" className="flex items-center group">
+              <img
+                src="/LogoHorizontal.webp"
+                alt="CRAFTIA Logo"
+                className="h-8 w-auto transition-all duration-300 group-hover:brightness-110"
+              />
             </Link>
           </motion.div>
 

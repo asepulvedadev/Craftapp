@@ -35,11 +35,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">CRAFTIA</span>
+            <Link href="/" className="flex items-center mb-4">
+              <img
+                src="/LogoHorizontal.webp"
+                alt="CRAFTIA Logo"
+                className="h-8 w-auto brightness-0 invert"
+              />
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md">
               Soluciones digitales profesionales en San Nicolás, Nuevo León.
