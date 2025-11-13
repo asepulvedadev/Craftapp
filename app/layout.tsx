@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
-import { Navbar, Footer } from "./components/shared"
+import { Navbar, Footer, WhatsAppButton } from "./components/shared"
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CRAFTIA - Soluciones Digitales Profesionales",
-  description: "Agencia de soluciones digitales en San Nicolás, Nuevo León. Desarrollo web, branding, impresión gran formato y corte láser. Resultados en 5-7 días.",
-  keywords: "desarrollo web, branding, impresión, corte laser, san nicolas, nuevo leon, mexico",
+  description: "Agencia de soluciones digitales en Monterrey, Nuevo León. Desarrollo web, branding, impresión gran formato y corte láser. Resultados en 5-7 días.",
+  keywords: "desarrollo web, branding, impresión, corte laser, monterrey, nuevo leon, mexico",
   authors: [{ name: "CRAFTIA" }],
   openGraph: {
     title: "CRAFTIA - Soluciones Digitales Profesionales",
@@ -41,6 +41,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <WhatsAppButton />
         <Analytics />
       </body>
     </html>

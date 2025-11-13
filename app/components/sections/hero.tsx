@@ -15,7 +15,7 @@ export function Hero() {
   const mousePosition = useMousePosition()
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
       {/* Clean dark background */}
       <div className="absolute inset-0 bg-background" />
 

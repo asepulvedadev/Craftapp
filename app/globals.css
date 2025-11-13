@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Fonts */
+@font-face {
+  font-family: 'Harabara';
+  src: url('/fonts/Harabara 700.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -77,6 +86,15 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Custom font for headings, subtitles, and links */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-harabara tracking-widest;
+  }
+
+  a {
+    @apply font-harabara tracking-wider;
   }
 }
 

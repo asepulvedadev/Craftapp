@@ -1,32 +1,13 @@
 import Link from 'next/link'
-import { Zap, Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react'
+import { Zap } from 'lucide-react'
+import { siteConfig } from '@/lib/site-config'
+import Image from 'next/image'
 
-const footerLinks = {
-  servicios: [
-    { name: 'Desarrollo Web', href: '/servicios#web' },
-    { name: 'Branding', href: '/servicios#branding' },
-    { name: 'Impresión', href: '/servicios#impresion' },
-    { name: 'Corte Láser', href: '/servicios#laser' },
-  ],
-  empresa: [
-    { name: 'Sobre Nosotros', href: '/nosotros' },
-    { name: 'Portafolio', href: '/portafolio' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contacto', href: '/contacto' },
-  ],
-  soporte: [
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Política de Privacidad', href: '/privacidad' },
-    { name: 'Términos de Servicio', href: '/terminos' },
-    { name: 'Soporte Técnico', href: '/soporte' },
-  ],
+const iconMap = {
+  Instagram: '/icons/instagramIcon.svg',
+  Facebook: '/icons/facebookIcon.svg',
+  TikTok: '/icons/tiktokIcon.svg',
 }
-
-const socialLinks = [
-  { name: 'Instagram', href: '#', icon: Instagram },
-  { name: 'Facebook', href: '#', icon: Facebook },
-  { name: 'Twitter', href: '#', icon: Twitter },
-]
 
 export function Footer() {
   return (
@@ -43,18 +24,23 @@ export function Footer() {
               />
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Soluciones digitales profesionales en San Nicolás, Nuevo León.
-              Transformamos ideas en experiencias que generan resultados reales.
+              {siteConfig.description}
             </p>
             <div className="flex space-x-4">
-              {socialLinks.map((social) => (
+              {siteConfig.socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   className="text-muted-foreground hover:text-primary transition-colors"
                   aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <Image
+                    src={iconMap[social.icon as keyof typeof iconMap]}
+                    alt={social.name}
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
                 </a>
               ))}
             </div>
@@ -64,7 +50,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Servicios</h3>
             <ul className="space-y-2">
-              {footerLinks.servicios.map((link) => (
+              {siteConfig.footerLinks.servicios.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -81,7 +67,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Empresa</h3>
             <ul className="space-y-2">
-              {footerLinks.empresa.map((link) => (
+              {siteConfig.footerLinks.empresa.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -99,16 +85,34 @@ export function Footer() {
             <h3 className="font-semibold text-foreground mb-4">Contacto</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Mail className="w-4 h-4 flex-shrink-0" />
-                <span>hola@craftia.mx</span>
+                <Image
+                  src="/icons/mailIcon.svg"
+                  alt="Email"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4 flex-shrink-0"
+                />
+                <span>{siteConfig.contact.email}</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Phone className="w-4 h-4 flex-shrink-0" />
-                <span>+52 81 1234 5678</span>
+                <Image
+                  src="/icons/telefonoIcon.svg"
+                  alt="Teléfono"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4 flex-shrink-0"
+                />
+                <span>{siteConfig.contact.phone}</span>
               </div>
               <div className="flex items-start space-x-2 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <span>San Nicolás, Nuevo León, México</span>
+                <Image
+                  src="/icons/ubicacionIcon.svg"
+                  alt="Ubicación"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4 flex-shrink-0 mt-0.5"
+                />
+                <span>{siteConfig.contact.address}</span>
               </div>
             </div>
           </div>
