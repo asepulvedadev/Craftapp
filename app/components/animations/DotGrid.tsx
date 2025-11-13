@@ -1,9 +1,6 @@
 'use client';
 import React, { useRef, useEffect, useCallback, useMemo } from 'react';
 import { gsap } from 'gsap';
-import { InertiaPlugin } from 'gsap/InertiaPlugin';
-
-gsap.registerPlugin(InertiaPlugin);
 
 const throttle = (func: (...args: any[]) => void, limit: number) => {
   let lastCall = 0;
@@ -215,10 +212,13 @@ const DotGrid: React.FC<DotGridProps> = ({
         if (speed > speedTrigger && dist < proximity && !dot._inertiaApplied) {
           dot._inertiaApplied = true;
           gsap.killTweensOf(dot);
-          const pushX = dot.cx - pr.x + vx * 0.005;
-          const pushY = dot.cy - pr.y + vy * 0.005;
+          const pushX = (dot.cx - pr.x) * 0.3 + vx * 0.01;
+          const pushY = (dot.cy - pr.y) * 0.3 + vy * 0.01;
           gsap.to(dot, {
-            inertia: { xOffset: pushX, yOffset: pushY, resistance },
+            xOffset: pushX,
+            yOffset: pushY,
+            duration: 0.8,
+            ease: 'power2.out',
             onComplete: () => {
               gsap.to(dot, {
                 xOffset: 0,
@@ -243,10 +243,13 @@ const DotGrid: React.FC<DotGridProps> = ({
           dot._inertiaApplied = true;
           gsap.killTweensOf(dot);
           const falloff = Math.max(0, 1 - dist / shockRadius);
-          const pushX = (dot.cx - cx) * shockStrength * falloff;
-          const pushY = (dot.cy - cy) * shockStrength * falloff;
+          const pushX = (dot.cx - cx) * shockStrength * falloff * 0.1;
+          const pushY = (dot.cy - cy) * shockStrength * falloff * 0.1;
           gsap.to(dot, {
-            inertia: { xOffset: pushX, yOffset: pushY, resistance },
+            xOffset: pushX,
+            yOffset: pushY,
+            duration: 0.6,
+            ease: 'power2.out',
             onComplete: () => {
               gsap.to(dot, {
                 xOffset: 0,
