@@ -234,7 +234,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
 export function PortfolioPreview() {
   return (
-    <section className="py-24 bg-gradient-to-b from-muted/20 to-background relative overflow-hidden">
+    <section id="portafolio" className="py-24 bg-gradient-to-b from-muted/20 to-background relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute top-20 left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl animate-float" />
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-accent/5 rounded-full blur-3xl animate-pulse-slow" />

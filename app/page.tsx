@@ -1,11 +1,18 @@
-import { Hero, ServicesGrid, PortfolioPreview } from "./components/sections"
+import { Hero, ServicesGrid, PortfolioPreview, ContactForm } from "./components/sections"
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Hero />
-      <ServicesGrid />
-      <PortfolioPreview />
+      <div className="py-4">
+        <ServicesGrid />
+      </div>
+      <div className="py-4">
+        <PortfolioPreview />
+      </div>
+      <div className="py-4">
+        <ContactForm />
+      </div>
     </div>
   );
 }

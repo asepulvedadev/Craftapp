@@ -33,13 +33,15 @@ export function Footer() {
                   href={social.href}
                   className="text-muted-foreground hover:text-primary transition-colors"
                   aria-label={social.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Image
                     src={iconMap[social.icon as keyof typeof iconMap]}
                     alt={social.name}
                     width={20}
                     height={20}
-                    className="w-5 h-5"
+                    className="w-5 h-5 hover:scale-110 transition-transform duration-200"
                   />
                 </a>
               ))}
@@ -112,7 +114,14 @@ export function Footer() {
                   height={16}
                   className="w-4 h-4 flex-shrink-0 mt-0.5"
                 />
-                <span>{siteConfig.contact.address}</span>
+                <a
+                  href="https://share.google/DQ6pkxQQguSOAeC0E"
+                  className="hover:text-primary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {siteConfig.contact.address}
+                </a>
               </div>
             </div>
           </div>
