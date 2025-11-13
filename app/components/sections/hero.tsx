@@ -16,73 +16,8 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Dynamic background with mouse tracking */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/5">
-        <motion.div
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 107, 53, 0.1) 0%, transparent 50%)`,
-          }}
-        />
-      </div>
-
-      {/* Particle background effect */}
-      <ParticleBackground particleCount={15} className="opacity-60" />
-
-      {/* Animated background elements */}
-      <motion.div
-        style={{ y: y1 }}
-        className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float"
-      />
-      <motion.div
-        style={{ y: y2 }}
-        className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow"
-      />
-
-      {/* Floating icons */}
-      <motion.div
-        animate={{
-          rotate: [0, 360],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          rotate: { duration: 20, repeat: Infinity, ease: 'linear' },
-          scale: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-        }}
-        className="absolute top-32 right-20 w-12 h-12 glass-card flex items-center justify-center"
-      >
-        <Code className="w-6 h-6 text-primary" />
-      </motion.div>
-
-      <motion.div
-        animate={{
-          y: [0, -10, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="absolute bottom-40 left-20 w-12 h-12 glass-card flex items-center justify-center"
-      >
-        <Palette className="w-6 h-6 text-primary" />
-      </motion.div>
-
-      <motion.div
-        animate={{
-          x: [0, 10, 0],
-          scale: [1, 1.05, 1],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="absolute top-1/2 right-32 w-12 h-12 glass-card flex items-center justify-center"
-      >
-        <Printer className="w-6 h-6 text-primary" />
-      </motion.div>
+      {/* Clean dark background */}
+      <div className="absolute inset-0 bg-background" />
 
       <motion.div
         style={{ opacity }}
@@ -107,7 +42,7 @@ export function Hero() {
             >
               <Sparkles className="w-4 h-4" />
             </motion.div>
-            <span className="gradient-text font-semibold">Soluciones Digitales Profesionales</span>
+            <span className="text-white font-semibold">Soluciones Digitales Profesionales</span>
           </motion.div>
 
           {/* Enhanced Headline with staggered animation */}
@@ -131,7 +66,7 @@ export function Hero() {
               </motion.span>
               <br />
               <motion.span
-                className="block gradient-text animate-glow"
+                className="block text-white"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.8, duration: 0.6, type: 'spring' }}

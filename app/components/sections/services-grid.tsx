@@ -14,8 +14,7 @@ const services = [
     price: 'Desde $3,000 MXN',
     delivery: '5-7 días',
     features: ['Responsive Design', 'SEO Optimizado', 'Performance 95+'],
-    gradient: 'from-blue-500/20 to-cyan-500/20',
-    iconColor: 'text-blue-500'
+    iconColor: 'text-primary'
   },
   {
     icon: Palette,
@@ -24,8 +23,7 @@ const services = [
     price: 'Desde $2,500 MXN',
     delivery: '3-5 días',
     features: ['Logo Vectorial', 'Paleta de Colores', 'Guía de Marca'],
-    gradient: 'from-purple-500/20 to-pink-500/20',
-    iconColor: 'text-purple-500'
+    iconColor: 'text-primary'
   },
   {
     icon: Scissors,
@@ -34,8 +32,7 @@ const services = [
     price: 'Desde $50 MXN',
     delivery: '1-3 días',
     features: ['Alta Precisión', 'Múltiples Materiales', 'Acabado Profesional'],
-    gradient: 'from-orange-500/20 to-red-500/20',
-    iconColor: 'text-orange-500'
+    iconColor: 'text-primary'
   },
   {
     icon: FileText,
@@ -44,8 +41,7 @@ const services = [
     price: 'Desde $300 MXN',
     delivery: '1-2 días',
     features: ['Formatos Múltiples', 'Archivos Editables', 'Revisión Incluida'],
-    gradient: 'from-green-500/20 to-emerald-500/20',
-    iconColor: 'text-green-500'
+    iconColor: 'text-primary'
   },
   {
     icon: Code,
@@ -54,8 +50,7 @@ const services = [
     price: '$135 MXN/ml',
     delivery: '2-4 días',
     features: ['Calidad Fotográfica', 'Materiales Premium', 'Instalación Opcional'],
-    gradient: 'from-indigo-500/20 to-purple-500/20',
-    iconColor: 'text-indigo-500'
+    iconColor: 'text-primary'
   }
 ]
 
@@ -90,13 +85,7 @@ function ServiceCard({ service, index }: { service: typeof services[0], index: n
     >
       <HoverCard className="h-full group cursor-pointer">
         <Card className="h-full glass-card border-0 relative overflow-hidden">
-          {/* Gradient background */}
-          <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-          {/* Animated border */}
-          <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/50 via-transparent to-primary/50 animate-shimmer" />
-          </div>
 
           <CardHeader className="relative z-10">
             <motion.div
