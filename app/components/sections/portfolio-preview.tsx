@@ -3,50 +3,14 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ExternalLink, Code, Monitor, Palette, Zap, TrendingUp, Clock } from 'lucide-react'
+import { ExternalLink, Code, Monitor, Palette, Zap, TrendingUp, Clock, Github, Loader2 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { HoverCard } from '../animations'
-import { useHover } from '@/lib/hooks'
+import { useHover, useGitHubProjects } from '@/lib/hooks'
+import type { ProcessedProject } from '@/lib/github'
 
-const projects = [
-  {
-    id: 1,
-    client: 'Pentágono Seguridad',
-    title: 'Sistema de Seguridad Empresarial',
-    type: 'Desarrollo Web',
-    description: 'Plataforma completa de gestión de seguridad con dashboard administrativo y monitoreo en tiempo real.',
-    url: 'https://pentagono-seguridad.com',
-    thumbnail: '/images/projects/pentagono.jpg', // Placeholder
-    technologies: ['Next.js', 'Tailwind', 'Supabase'],
-    metrics: { pagespeed: 95, deliveryDays: 7 },
-    category: 'web'
-  },
-  {
-    id: 2,
-    client: 'Best Drip',
-    title: 'Landing Page E-commerce',
-    type: 'Tienda Online',
-    description: 'Coming soon page con diseño moderno y sistema de preventa para marca de streetwear.',
-    url: 'https://bestdrip.com.mx',
-    thumbnail: '/images/projects/bestdrip.jpg', // Placeholder
-    technologies: ['React', 'Tailwind', 'Stripe'],
-    metrics: { pagespeed: 92, deliveryDays: 5 },
-    category: 'web'
-  },
-  {
-    id: 3,
-    client: 'Mayand Calculator',
-    title: 'Calculadora de Impresión',
-    type: 'Web App Interactiva',
-    description: 'Herramienta web para calcular costos de impresión con interfaz intuitiva y cotización automática.',
-    url: 'https://mayand-calculadora.vercel.app',
-    thumbnail: '/images/projects/mayand.jpg', // Placeholder
-    technologies: ['Next.js', 'TypeScript', 'Tailwind'],
-    metrics: { pagespeed: 98, deliveryDays: 3 },
-    category: 'web'
-  }
-]
+// GitHub projects will be loaded dynamically
 
 const getCategoryIcon = (category: string) => {
   switch (category) {
@@ -82,7 +46,7 @@ const itemVariants = {
   }
 }
 
-function ProjectCard({ project, index }: { project: typeof projects[0], index: number }) {
+function ProjectCard({ project, index }: { project: ProcessedProject, index: number }) {
   const { isHover, hoverProps } = useHover()
   const IconComponent = getCategoryIcon(project.category)
 
@@ -210,18 +174,20 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
             <div className="flex justify-between items-center text-sm">
               <div className="flex items-center gap-4">
                 <motion.div
-                  className="flex items-center gap-1 text-primary font-medium"
+                  className="flex items-center gap-1 text-yellow-500 font-medium"
                   whileHover={{ scale: 1.05 }}
+                  title={`${project.github.stars} estrellas en GitHub`}
                 >
-                  <TrendingUp className="w-4 h-4" />
-                  {project.metrics.pagespeed}
+                  <Zap className="w-4 h-4" />
+                  {project.github.stars}
                 </motion.div>
                 <motion.div
                   className="flex items-center gap-1 text-muted-foreground"
                   whileHover={{ scale: 1.05 }}
+                  title={`Lenguaje principal: ${project.github.language}`}
                 >
-                  <Clock className="w-4 h-4" />
-                  {project.metrics.deliveryDays} días
+                  <Code className="w-4 h-4" />
+                  {project.github.language}
                 </motion.div>
               </div>
             </div>
@@ -233,6 +199,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 }
 
 export function PortfolioPreview() {
+  const { projects, loading, error } = useGitHubProjects();
+
   return (
     <section id="portafolio" className="py-24 bg-gradient-to-b from-muted/20 to-background relative overflow-hidden">
       {/* Background decorations */}
@@ -258,9 +226,9 @@ export function PortfolioPreview() {
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             >
-              <Zap className="w-4 h-4" />
+              <Github className="w-4 h-4" />
             </motion.div>
-            Casos de Éxito Reales
+            Proyectos desde GitHub
           </motion.div>
 
           <motion.h2
@@ -270,7 +238,7 @@ export function PortfolioPreview() {
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Portafolio de <span className="gradient-text animate-glow">Éxito</span>
+            Portafolio de <span className="gradient-text animate-glow">Código</span>
           </motion.h2>
 
           <motion.p
@@ -280,22 +248,46 @@ export function PortfolioPreview() {
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            Proyectos reales que han transformado negocios. Cada solución está diseñada
-            para generar resultados tangibles y maximizar el retorno de inversión.
+            Proyectos reales desde GitHub. Cada repositorio representa soluciones técnicas
+            desarrolladas con las últimas tecnologías y mejores prácticas.
           </motion.p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
-          ))}
-        </motion.div>
+        {loading ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex justify-center items-center py-20"
+          >
+            <div className="text-center">
+              <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
+              <p className="text-muted-foreground">Cargando proyectos desde GitHub...</p>
+            </div>
+          </motion.div>
+        ) : error ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-20"
+          >
+            <div className="text-red-500 mb-4">
+              <Github className="w-12 h-12 mx-auto" />
+            </div>
+            <p className="text-muted-foreground">Error al cargar proyectos: {error}</p>
+          </motion.div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {projects.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -309,17 +301,14 @@ export function PortfolioPreview() {
             whileTap={{ scale: 0.95 }}
           >
             <Link
-              href="/portafolio"
+              href="https://github.com/asepulvedadev"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 glass-card border border-primary/20 text-primary rounded-lg hover-glow transition-all duration-200 font-medium"
             >
-              <ExternalLink className="w-5 h-5" />
-              Ver Todos los Proyectos
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </motion.div>
+              <Github className="w-5 h-5" />
+              Ver en GitHub
+              <ExternalLink className="w-4 h-4" />
             </Link>
           </motion.div>
         </motion.div>
